@@ -1,0 +1,65 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.panelTitle {
+  padding: 16px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border);
+}
+
+.sleevedYes {
+  color: var(--success);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.sleevedPartial {
+  color: var(--warning);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.sleevedNo {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.gameCell {
+  font-weight: 500;
+  vertical-align: top;
+  padding-top: 12px;
+}
+
+.sleeveType {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.stockLow {
+  color: var(--warning);
+  font-weight: 500;
+}
+
+.stockOk {
+  color: var(--success);
+}

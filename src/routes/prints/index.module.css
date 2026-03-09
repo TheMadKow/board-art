@@ -1,0 +1,83 @@
+.kanban {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .kanban {
+    grid-template-columns: 1fr;
+  }
+}
+
+.column {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.columnHeader {
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dotPlanned { background-color: var(--muted); }
+.dotPrinting { background-color: var(--warning); }
+.dotPrinted { background-color: var(--success); }
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.card {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.card:last-child {
+  border-bottom: none;
+}
+
+.cardName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.cardGame {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.cardNote {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.empty {
+  padding: 20px 18px;
+  color: var(--muted);
+  font-size: 13px;
+  font-style: italic;
+}

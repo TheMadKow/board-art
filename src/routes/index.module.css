@@ -1,0 +1,70 @@
+.hero {
+  margin-bottom: 40px;
+}
+
+.hero h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.03em;
+}
+
+.hero h1 span {
+  color: var(--accent);
+}
+
+.hero p {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), var(--shadow);
+  transform: translateY(-2px);
+  color: inherit;
+}
+
+.cardIcon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.cardStat {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.cardDesc {
+  color: var(--muted);
+  font-size: 13px;
+}

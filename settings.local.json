@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun add better-sqlite3)",
+      "Bash(bun add -d @types/better-sqlite3)",
+      "Bash(bun pm trust better-sqlite3)",
+      "Bash(bun x tsc --noEmit)",
+      "Bash(echo \"Exit: $?\")"
+    ]
+  }
+}
