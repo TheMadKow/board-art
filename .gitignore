@@ -1,0 +1,9 @@
+node_modules/
+.nuxt/
+.output/
+dist/
+.env
+*.local
+data/*.db-shm
+data/*.db-wal
+.claude/settings.local.json
