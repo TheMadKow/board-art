@@ -9,7 +9,9 @@ export const Route = createFileRoute('/sleeving/')({
 })
 
 function sleeveProgress(needed: number, sleeved: number) {
-  if (needed === 0) return null
+  if (needed === 0) {
+    return null
+  }
   const pct = Math.round((sleeved / needed) * 100)
   return { pct, complete: sleeved >= needed }
 }

@@ -17,24 +17,24 @@ export const getSleevingData = createServerFn({ method: 'GET' }).handler((): Sle
   const stockRows = db.prepare('SELECT * FROM sleeve_stock ORDER BY brand, size').all() as StockRow[]
 
   return {
-    games: gameRows.map((g) => ({
-      id: g.id,
-      title: g.title,
+    games: gameRows.map((game) => ({
+      id: game.id,
+      title: game.title,
       owned: true,
       sleeves: sleeveRows
-        .filter((s) => s.game_id === g.id)
-        .map((s): GameSleeve => ({
-          name: s.name,
-          type: s.type,
-          needed: s.needed,
-          sleeved: s.sleeved,
+        .filter((sleeve) => sleeve.game_id === game.id)
+        .map((sleeve): GameSleeve => ({
+          name: sleeve.name,
+          type: sleeve.type,
+          needed: sleeve.needed,
+          sleeved: sleeve.sleeved,
         })),
     })),
-    stock: stockRows.map((s): SleeveStock => ({
-      id: s.id,
-      brand: s.brand,
-      size: s.size,
-      countInStock: s.count_in_stock,
+    stock: stockRows.map((stock): SleeveStock => ({
+      id: stock.id,
+      brand: stock.brand,
+      size: stock.size,
+      countInStock: stock.count_in_stock,
     })),
   }
 })

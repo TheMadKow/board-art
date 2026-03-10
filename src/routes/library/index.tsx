@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { getGames } from '~/lib/serverFns/games'
 import SectionHeader from '~/components/SectionHeader/SectionHeader'
+import { LOCALE } from '~/lib/constants'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/library/')({
@@ -9,7 +10,7 @@ export const Route = createFileRoute('/library/')({
 })
 
 function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-US', {
+  return new Date(dateStr).toLocaleDateString(LOCALE, {
     month: 'short',
     day: 'numeric',
     year: 'numeric',

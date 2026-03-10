@@ -20,14 +20,14 @@ describe('getSleevingData', () => {
 
   it('only includes owned games', () => {
     const data = getSleevingData()
-    expect(data.games.every((g) => g.owned === true)).toBe(true)
-    const arkNova = data.games.find((g) => g.id === 'g3')
+    expect(data.games.every((game) => game.owned === true)).toBe(true)
+    const arkNova = data.games.find((game) => game.id === 'g3')
     expect(arkNova).toBeUndefined()
   })
 
   it('sleeves are associated to the correct game', () => {
     const data = getSleevingData()
-    const gloomhaven = data.games.find((g) => g.id === 'g1')
+    const gloomhaven = data.games.find((game) => game.id === 'g1')
     expect(gloomhaven?.sleeves.length).toBe(1)
     expect(gloomhaven?.sleeves[0].name).toBe('Monster cards')
   })

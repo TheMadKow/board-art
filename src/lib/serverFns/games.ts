@@ -9,17 +9,17 @@ export const getGames = createServerFn({ method: 'GET' }).handler((): Game[] => 
   const gameRows = db.prepare('SELECT * FROM games ORDER BY title').all() as GameRow[]
   const sessionRows = db.prepare('SELECT * FROM play_sessions ORDER BY date DESC').all() as SessionRow[]
 
-  return gameRows.map((g) => ({
-    id: g.id,
-    title: g.title,
-    bggId: g.bgg_id ?? undefined,
-    owned: g.owned === 1,
+  return gameRows.map((game) => ({
+    id: game.id,
+    title: game.title,
+    bggId: game.bgg_id ?? undefined,
+    owned: game.owned === 1,
     playLog: sessionRows
-      .filter((s) => s.game_id === g.id)
-      .map((s): PlaySession => ({
-        date: s.date,
-        players: s.players,
-        notes: s.notes ?? undefined,
+      .filter((session) => session.game_id === game.id)
+      .map((session): PlaySession => ({
+        date: session.date,
+        players: session.players,
+        notes: session.notes ?? undefined,
       })),
     sleeves: [],
   }))

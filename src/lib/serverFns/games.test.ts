@@ -31,24 +31,24 @@ describe('getGames', () => {
 
   it('owned is a boolean (not 0/1 integer)', () => {
     const games = getGames()
-    const gloomhaven = games.find((g) => g.id === 'g1')
+    const gloomhaven = games.find((game) => game.id === 'g1')
     expect(gloomhaven?.owned).toBe(true)
-    const arkNova = games.find((g) => g.id === 'g3')
+    const arkNova = games.find((game) => game.id === 'g3')
     expect(arkNova?.owned).toBe(false)
   })
 
   it('playLog entries are associated to the correct game', () => {
     const games = getGames()
-    const gloomhaven = games.find((g) => g.id === 'g1')
+    const gloomhaven = games.find((game) => game.id === 'g1')
     expect(gloomhaven?.playLog.length).toBe(2)
-    const wingspan = games.find((g) => g.id === 'g2')
+    const wingspan = games.find((game) => game.id === 'g2')
     expect(wingspan?.playLog.length).toBe(1)
   })
 
   it('null notes become undefined', () => {
     const games = getGames()
-    const gloomhaven = games.find((g) => g.id === 'g1')
-    const sessionWithoutNotes = gloomhaven?.playLog.find((s) => s.notes === undefined)
+    const gloomhaven = games.find((game) => game.id === 'g1')
+    const sessionWithoutNotes = gloomhaven?.playLog.find((session) => session.notes === undefined)
     expect(sessionWithoutNotes).toBeTruthy()
   })
 })

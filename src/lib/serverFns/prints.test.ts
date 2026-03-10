@@ -19,22 +19,22 @@ describe('getPrintProjects', () => {
 
   it('each project has the expected shape', () => {
     const projects = getPrintProjects()
-    for (const p of projects) {
-      expect(typeof p.id).toBe('string')
-      expect(typeof p.name).toBe('string')
-      expect(['planned', 'printing', 'printed']).toContain(p.status)
+    for (const project of projects) {
+      expect(typeof project.id).toBe('string')
+      expect(typeof project.name).toBe('string')
+      expect(['planned', 'printing', 'printed']).toContain(project.status)
     }
   })
 
   it('gameId is undefined for projects with no associated game', () => {
     const projects = getPrintProjects()
-    const generic = projects.find((p) => p.id === 'p2')
+    const generic = projects.find((project) => project.id === 'p2')
     expect(generic?.gameId).toBeUndefined()
   })
 
   it('gameId is set for projects linked to a game', () => {
     const projects = getPrintProjects()
-    const stands = projects.find((p) => p.id === 'p1')
+    const stands = projects.find((project) => project.id === 'p1')
     expect(stands?.gameId).toBe('g1')
   })
 })
