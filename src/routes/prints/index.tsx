@@ -3,9 +3,11 @@ import { getPrintProjects } from '~/lib/serverFns/prints'
 import { getGames } from '~/lib/serverFns/games'
 import type { PrintProject } from '~/types'
 import SectionHeader from '~/components/SectionHeader/SectionHeader'
+import RouteError from '~/components/RouteError/RouteError'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/prints/')({
+  errorComponent: ({ error }) => <RouteError error={error as Error} />,
   loader: async () => {
     const [printProjects, games] = await Promise.all([getPrintProjects(), getGames()])
     const gameMap = Object.fromEntries(games.map((g) => [g.id, g.title]))
@@ -14,7 +16,9 @@ export const Route = createFileRoute('/prints/')({
   component: Prints,
 })
 
-const COLUMNS: { status: PrintProject['status']; label: string; dot: string }[] = [
+type DotClass = 'dotPlanned' | 'dotPrinting' | 'dotPrinted'
+
+const COLUMNS: { status: PrintProject['status']; label: string; dot: DotClass }[] = [
   { status: 'planned', label: 'Planned', dot: 'dotPlanned' },
   { status: 'printing', label: 'Printing', dot: 'dotPrinting' },
   { status: 'printed', label: 'Printed', dot: 'dotPrinted' },

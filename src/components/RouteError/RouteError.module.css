@@ -1,0 +1,16 @@
+.container {
+  padding: 2rem;
+  color: var(--error, #e53935);
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.message {
+  font-family: monospace;
+  font-size: 0.875rem;
+  color: var(--muted);
+}

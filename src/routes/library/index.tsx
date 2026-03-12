@@ -1,10 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { getGames } from '~/lib/serverFns/games'
 import SectionHeader from '~/components/SectionHeader/SectionHeader'
+import RouteError from '~/components/RouteError/RouteError'
 import { LOCALE } from '~/lib/constants'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/library/')({
+  errorComponent: ({ error }) => <RouteError error={error as Error} />,
   loader: () => getGames(),
   component: Library,
 })
@@ -58,7 +60,7 @@ function Library() {
                       ? `${game.playLog.length} session${game.playLog.length !== 1 ? 's' : ''}`
                       : <span className={styles.noSessions}>Never played</span>}
                   </td>
-                  <td className={styles.lastPlayed}>
+                  <td className={styles.sessions}>
                     {last ? formatDate(last.date) : '—'}
                   </td>
                   <td className={styles.sessions}>

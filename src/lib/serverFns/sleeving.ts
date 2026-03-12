@@ -2,8 +2,16 @@ import { createServerFn } from '@tanstack/react-start'
 import { db } from '~/lib/db'
 import type { Game, GameSleeve, SleeveStock } from '~/types'
 
-type GameRow = { id: string; title: string; bgg_id: string | null; owned: number }
-type SleeveRow = { game_id: string; name: string; type: string; needed: number; sleeved: number }
+type JoinRow = {
+  game_id: string
+  title: string
+  owned: number
+  sleeve_id: number | null
+  name: string | null
+  type: string | null
+  needed: number | null
+  sleeved: number | null
+}
 type StockRow = { id: string; brand: string; size: string; count_in_stock: number }
 
 export type SleevingData = {
@@ -12,24 +20,40 @@ export type SleevingData = {
 }
 
 export const getSleevingData = createServerFn({ method: 'GET' }).handler((): SleevingData => {
-  const gameRows = db.prepare('SELECT * FROM games WHERE owned = 1 ORDER BY title').all() as GameRow[]
-  const sleeveRows = db.prepare('SELECT * FROM game_sleeves').all() as SleeveRow[]
+  const rows = db.prepare(`
+    SELECT g.id as game_id, g.title, g.owned,
+           sl.id as sleeve_id, sl.name, sl.type, sl.needed, sl.sleeved
+    FROM games g
+    LEFT JOIN game_sleeves sl ON sl.game_id = g.id
+    WHERE g.owned = 1
+    ORDER BY g.title
+  `).all() as JoinRow[]
+
   const stockRows = db.prepare('SELECT * FROM sleeve_stock ORDER BY brand, size').all() as StockRow[]
 
+  const map = new Map<string, Pick<Game, 'id' | 'title' | 'owned' | 'sleeves'>>()
+  for (const row of rows) {
+    if (!map.has(row.game_id)) {
+      map.set(row.game_id, {
+        id: row.game_id,
+        title: row.title,
+        owned: true,
+        sleeves: [],
+      })
+    }
+    if (row.sleeve_id !== null) {
+      map.get(row.game_id)!.sleeves.push({
+        id: row.sleeve_id,
+        name: row.name!,
+        type: row.type!,
+        needed: row.needed!,
+        sleeved: row.sleeved!,
+      } satisfies GameSleeve)
+    }
+  }
+
   return {
-    games: gameRows.map((game) => ({
-      id: game.id,
-      title: game.title,
-      owned: true,
-      sleeves: sleeveRows
-        .filter((sleeve) => sleeve.game_id === game.id)
-        .map((sleeve): GameSleeve => ({
-          name: sleeve.name,
-          type: sleeve.type,
-          needed: sleeve.needed,
-          sleeved: sleeve.sleeved,
-        })),
-    })),
+    games: [...map.values()],
     stock: stockRows.map((stock): SleeveStock => ({
       id: stock.id,
       brand: stock.brand,

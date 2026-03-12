@@ -2,9 +2,11 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { getGames } from '~/lib/serverFns/games'
 import { getSleevingData } from '~/lib/serverFns/sleeving'
 import { getPrintProjects } from '~/lib/serverFns/prints'
+import RouteError from '~/components/RouteError/RouteError'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/')({
+  errorComponent: ({ error }) => <RouteError error={error as Error} />,
   loader: async () => {
     const [games, { games: sleeveGames }, printProjects] = await Promise.all([
       getGames(),

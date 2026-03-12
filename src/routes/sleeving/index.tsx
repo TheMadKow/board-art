@@ -1,9 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { getSleevingData } from '~/lib/serverFns/sleeving'
 import SectionHeader from '~/components/SectionHeader/SectionHeader'
+import RouteError from '~/components/RouteError/RouteError'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/sleeving/')({
+  errorComponent: ({ error }) => <RouteError error={error as Error} />,
   loader: () => getSleevingData(),
   component: Sleeving,
 })
@@ -48,7 +50,7 @@ function Sleeving() {
                 game.sleeves.map((sleeve, i) => {
                   const progress = sleeveProgress(sleeve.needed, sleeve.sleeved)
                   return (
-                    <tr key={`${game.id}-${i}`}>
+                    <tr key={sleeve.id}>
                       {i === 0 ? (
                         <td rowSpan={game.sleeves.length} className={styles.gameCell}>
                           {game.title}

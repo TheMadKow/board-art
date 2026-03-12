@@ -21,10 +21,6 @@
   font-size: 13px;
 }
 
-.lastPlayed {
-  color: var(--muted);
-  font-size: 13px;
-}
 
 .noSessions {
   color: var(--muted);

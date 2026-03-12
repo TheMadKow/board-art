@@ -5,6 +5,7 @@ export interface PlaySession {
 }
 
 export interface GameSleeve {
+  id: number
   name: string      // e.g. "Main cards", "Mini cards"
   type: string      // e.g. "Mayday Premium (63×88mm)"
   needed: number    // total sleeves required for this component

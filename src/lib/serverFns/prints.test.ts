@@ -4,7 +4,7 @@ const testDb = createTestDb()
 
 mock.module('~/lib/db', () => ({ db: testDb }))
 mock.module('@tanstack/react-start', () => ({
-  createServerFn: () => ({ handler: (fn: Function) => fn }),
+  createServerFn: () => ({ handler: (fn: (...args: unknown[]) => unknown) => fn }),
 }))
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,7 +19,8 @@ describe('getPrintProjects', () => {
 
   it('each project has the expected shape', () => {
     const projects = getPrintProjects()
-    for (const project of projects) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    for (const project of projects as any[]) {
       expect(typeof project.id).toBe('string')
       expect(typeof project.name).toBe('string')
       expect(['planned', 'printing', 'printed']).toContain(project.status)
@@ -28,13 +29,15 @@ describe('getPrintProjects', () => {
 
   it('gameId is undefined for projects with no associated game', () => {
     const projects = getPrintProjects()
-    const generic = projects.find((project) => project.id === 'p2')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const generic = (projects as any[]).find((project: any) => project.id === 'p2')
     expect(generic?.gameId).toBeUndefined()
   })
 
   it('gameId is set for projects linked to a game', () => {
     const projects = getPrintProjects()
-    const stands = projects.find((project) => project.id === 'p1')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const stands = (projects as any[]).find((project: any) => project.id === 'p1')
     expect(stands?.gameId).toBe('g1')
   })
 })
