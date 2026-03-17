@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as UserIndexRouteImport } from './routes/user/index'
 import { Route as SleevingIndexRouteImport } from './routes/sleeving/index'
 import { Route as PrintsIndexRouteImport } from './routes/prints/index'
 import { Route as LibraryIndexRouteImport } from './routes/library/index'
@@ -17,6 +18,11 @@ import { Route as LibraryIndexRouteImport } from './routes/library/index'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UserIndexRoute = UserIndexRouteImport.update({
+  id: '/user/',
+  path: '/user/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SleevingIndexRoute = SleevingIndexRouteImport.update({
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/library/': typeof LibraryIndexRoute
   '/prints/': typeof PrintsIndexRoute
   '/sleeving/': typeof SleevingIndexRoute
+  '/user/': typeof UserIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/library': typeof LibraryIndexRoute
   '/prints': typeof PrintsIndexRoute
   '/sleeving': typeof SleevingIndexRoute
+  '/user': typeof UserIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/library/': typeof LibraryIndexRoute
   '/prints/': typeof PrintsIndexRoute
   '/sleeving/': typeof SleevingIndexRoute
+  '/user/': typeof UserIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/library/' | '/prints/' | '/sleeving/'
+  fullPaths: '/' | '/library/' | '/prints/' | '/sleeving/' | '/user/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/library' | '/prints' | '/sleeving'
-  id: '__root__' | '/' | '/library/' | '/prints/' | '/sleeving/'
+  to: '/' | '/library' | '/prints' | '/sleeving' | '/user'
+  id: '__root__' | '/' | '/library/' | '/prints/' | '/sleeving/' | '/user/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +76,7 @@ export interface RootRouteChildren {
   LibraryIndexRoute: typeof LibraryIndexRoute
   PrintsIndexRoute: typeof PrintsIndexRoute
   SleevingIndexRoute: typeof SleevingIndexRoute
+  UserIndexRoute: typeof UserIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/': {
+      id: '/user/'
+      path: '/user'
+      fullPath: '/user/'
+      preLoaderRoute: typeof UserIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sleeving/': {
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   LibraryIndexRoute: LibraryIndexRoute,
   PrintsIndexRoute: PrintsIndexRoute,
   SleevingIndexRoute: SleevingIndexRoute,
+  UserIndexRoute: UserIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

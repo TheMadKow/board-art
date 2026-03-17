@@ -21,7 +21,7 @@ export const Route = createFileRoute('/')({
 function Dashboard() {
   const { games, sleeveGames, printProjects } = Route.useLoaderData()
 
-  const ownedCount = games.filter((g) => g.owned).length
+  const ownedCount = games.filter((g) => g.owned && !g.removed).length
   const totalSessions = games.reduce((sum, g) => sum + g.playLog.length, 0)
 
   const ownedWithSleeves = sleeveGames.filter((g) => g.sleeves.length > 0)

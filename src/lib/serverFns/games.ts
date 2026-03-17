@@ -7,6 +7,7 @@ type JoinRow = {
   title: string
   bgg_id: string | null
   owned: number
+  removed: number
   session_date: string | null
   players: number | null
   notes: string | null
@@ -14,7 +15,7 @@ type JoinRow = {
 
 export const getGames = createServerFn({ method: 'GET' }).handler((): Omit<Game, 'sleeves'>[] => {
   const rows = db.prepare(`
-    SELECT g.id as game_id, g.title, g.bgg_id, g.owned,
+    SELECT g.id as game_id, g.title, g.bgg_id, g.owned, g.removed,
            s.date as session_date, s.players, s.notes
     FROM games g
     LEFT JOIN play_sessions s ON s.game_id = g.id
@@ -29,6 +30,7 @@ export const getGames = createServerFn({ method: 'GET' }).handler((): Omit<Game,
         title: row.title,
         bggId: row.bgg_id ?? undefined,
         owned: row.owned === 1,
+        removed: row.removed === 1,
         playLog: [],
       })
     }

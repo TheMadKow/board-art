@@ -17,6 +17,7 @@ export interface Game {
   title: string
   bggId?: string
   owned: boolean
+  removed: boolean
   playLog: PlaySession[]
   sleeves: GameSleeve[]
 }

@@ -90,3 +90,6 @@ declare global {
 }
 
 export const db: Database.Database = globalThis.__db ?? (globalThis.__db = initDb())
+
+// Idempotent migrations — run on every module evaluation so HMR picks them up
+try { db.exec('ALTER TABLE games ADD COLUMN removed INTEGER NOT NULL DEFAULT 0') } catch { /* column exists */ }

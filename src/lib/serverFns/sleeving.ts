@@ -25,7 +25,7 @@ export const getSleevingData = createServerFn({ method: 'GET' }).handler((): Sle
            sl.id as sleeve_id, sl.name, sl.type, sl.needed, sl.sleeved
     FROM games g
     LEFT JOIN game_sleeves sl ON sl.game_id = g.id
-    WHERE g.owned = 1
+    WHERE g.owned = 1 AND g.removed = 0
     ORDER BY g.title
   `).all() as JoinRow[]
 

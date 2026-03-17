@@ -3,6 +3,7 @@
   align-items: center;
   gap: 8px;
   padding: 0 32px;
+  justify-content: space-between;
   height: 60px;
   background-color: var(--surface);
   border-bottom: 1px solid var(--border);
@@ -28,6 +29,29 @@
   display: flex;
   gap: 4px;
   align-items: center;
+  flex: 1;
+}
+
+.userIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--muted);
+  transition: color 0.15s, background-color 0.15s;
+  flex-shrink: 0;
+}
+
+.userIcon:hover {
+  color: var(--text);
+  background-color: var(--surface-raised);
+}
+
+.userIcon[data-status='active'] {
+  color: var(--accent);
+  background-color: var(--accent-dim);
 }
 
 .link {

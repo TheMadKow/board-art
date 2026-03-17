@@ -26,7 +26,7 @@ function Library() {
     <div>
       <SectionHeader
         title="Game Library"
-        subtitle={`${games.filter((g) => g.owned).length} owned · ${games.length} total tracked`}
+        subtitle={`${games.filter((g) => g.owned && !g.removed).length} owned · ${games.length} total tracked`}
       />
 
       <div className={styles.tableWrapper}>
@@ -51,8 +51,8 @@ function Library() {
                 <tr key={game.id}>
                   <td>{game.title}</td>
                   <td>
-                    <span className={`${styles.badge} ${game.owned ? styles.owned : styles.wishlist}`}>
-                      {game.owned ? 'Owned' : 'Wishlist'}
+                    <span className={`${styles.badge} ${game.removed ? styles.removed : game.owned ? styles.owned : styles.wishlist}`}>
+                      {game.removed ? 'Removed' : game.owned ? 'Owned' : 'Wishlist'}
                     </span>
                   </td>
                   <td className={styles.sessions}>

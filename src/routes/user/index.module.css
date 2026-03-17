@@ -1,0 +1,147 @@
+.section {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.field {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  max-width: 320px;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 14px;
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.input:focus {
+  border-color: var(--accent);
+}
+
+.btnPrimary {
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 18px;
+  transition: background-color 0.15s;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnSync {
+  background-color: var(--surface-raised);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 18px;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.btnSync:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btnSync:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.syncRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.resultBox {
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.resultTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+.resultStat {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.resultStat strong {
+  color: var(--text);
+}
+
+.added {
+  color: var(--success);
+}
+
+.removed {
+  color: var(--danger);
+}
+
+.gameList {
+  margin-top: 8px;
+  padding-left: 16px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.error {
+  margin-top: 16px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background-color: rgba(224, 90, 90, 0.1);
+  border: 1px solid rgba(224, 90, 90, 0.3);
+  color: var(--danger);
+  font-size: 13px;
+}
+
+.saved {
+  font-size: 13px;
+  color: var(--success);
+}

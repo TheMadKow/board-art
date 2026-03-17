@@ -3,7 +3,13 @@ export const SCHEMA_SQL = `
     id        TEXT PRIMARY KEY,
     title     TEXT NOT NULL,
     bgg_id    TEXT,
-    owned     INTEGER NOT NULL DEFAULT 1
+    owned     INTEGER NOT NULL DEFAULT 1,
+    removed   INTEGER NOT NULL DEFAULT 0
+  );
+
+  CREATE TABLE IF NOT EXISTS settings (
+    key   TEXT PRIMARY KEY,
+    value TEXT NOT NULL
   );
 
   CREATE TABLE IF NOT EXISTS play_sessions (
