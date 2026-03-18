@@ -43,4 +43,4 @@ export const SCHEMA_SQL = `
     status   TEXT NOT NULL DEFAULT 'planned',
     notes    TEXT
   );
-`
+`;

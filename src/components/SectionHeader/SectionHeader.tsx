@@ -1,8 +1,8 @@
-import styles from './SectionHeader.module.css'
+import styles from "./SectionHeader.module.css";
 
 interface SectionHeaderProps {
-  title: string
-  subtitle?: string
+  title: string;
+  subtitle?: string;
 }
 
 export default function SectionHeader({ title, subtitle }: SectionHeaderProps) {
@@ -11,5 +11,5 @@ export default function SectionHeader({ title, subtitle }: SectionHeaderProps) {
       <h1 className={styles.title}>{title}</h1>
       {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
     </div>
-  )
+  );
 }

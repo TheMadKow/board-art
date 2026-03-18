@@ -1,30 +1,30 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { getSleevingData } from '~/lib/serverFns/sleeving'
-import SectionHeader from '~/components/SectionHeader/SectionHeader'
-import RouteError from '~/components/RouteError/RouteError'
-import styles from './index.module.css'
+import { createFileRoute } from "@tanstack/react-router";
+import { getSleevingData } from "~/lib/serverFns/sleeving";
+import SectionHeader from "~/components/SectionHeader/SectionHeader";
+import RouteError from "~/components/RouteError/RouteError";
+import styles from "./index.module.css";
 
-export const Route = createFileRoute('/sleeving/')({
+export const Route = createFileRoute("/sleeving/")({
   errorComponent: ({ error }) => <RouteError error={error as Error} />,
   loader: () => getSleevingData(),
   component: Sleeving,
-})
+});
 
 function sleeveProgress(needed: number, sleeved: number) {
   if (needed === 0) {
-    return null
+    return null;
   }
-  const pct = Math.round((sleeved / needed) * 100)
-  return { pct, complete: sleeved >= needed }
+  const pct = Math.round((sleeved / needed) * 100);
+  return { pct, complete: sleeved >= needed };
 }
 
 function Sleeving() {
-  const { games, stock } = Route.useLoaderData()
+  const { games, stock } = Route.useLoaderData();
 
-  const gamesWithSleeves = games.filter((g) => g.sleeves.length > 0)
+  const gamesWithSleeves = games.filter((g) => g.sleeves.length > 0);
   const fullySleevedCount = gamesWithSleeves.filter((g) =>
-    g.sleeves.every((s) => s.sleeved >= s.needed)
-  ).length
+    g.sleeves.every((s) => s.sleeved >= s.needed),
+  ).length;
 
   return (
     <div>
@@ -48,7 +48,7 @@ function Sleeving() {
             <tbody>
               {gamesWithSleeves.flatMap((game) =>
                 game.sleeves.map((sleeve, i) => {
-                  const progress = sleeveProgress(sleeve.needed, sleeve.sleeved)
+                  const progress = sleeveProgress(sleeve.needed, sleeve.sleeved);
                   return (
                     <tr key={sleeve.id}>
                       {i === 0 ? (
@@ -68,12 +68,12 @@ function Sleeving() {
                             {sleeve.sleeved}/{sleeve.needed} ({progress.pct}%)
                           </span>
                         ) : (
-                          '—'
+                          "—"
                         )}
                       </td>
                     </tr>
-                  )
-                })
+                  );
+                }),
               )}
               {games
                 .filter((g) => g.sleeves.length === 0)
@@ -114,5 +114,5 @@ function Sleeving() {
         </div>
       </div>
     </div>
-  )
+  );
 }

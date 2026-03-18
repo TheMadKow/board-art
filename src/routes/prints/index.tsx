@@ -1,32 +1,32 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { getPrintProjects } from '~/lib/serverFns/prints'
-import { getGames } from '~/lib/serverFns/games'
-import type { PrintProject } from '~/types'
-import SectionHeader from '~/components/SectionHeader/SectionHeader'
-import RouteError from '~/components/RouteError/RouteError'
-import styles from './index.module.css'
+import { createFileRoute } from "@tanstack/react-router";
+import { getPrintProjects } from "~/lib/serverFns/prints";
+import { getGames } from "~/lib/serverFns/games";
+import type { PrintProject } from "~/types";
+import SectionHeader from "~/components/SectionHeader/SectionHeader";
+import RouteError from "~/components/RouteError/RouteError";
+import styles from "./index.module.css";
 
-export const Route = createFileRoute('/prints/')({
+export const Route = createFileRoute("/prints/")({
   errorComponent: ({ error }) => <RouteError error={error as Error} />,
   loader: async () => {
-    const [printProjects, games] = await Promise.all([getPrintProjects(), getGames()])
-    const gameMap = Object.fromEntries(games.map((g) => [g.id, g.title]))
-    return { printProjects, gameMap }
+    const [printProjects, games] = await Promise.all([getPrintProjects(), getGames()]);
+    const gameMap = Object.fromEntries(games.map((g) => [g.id, g.title]));
+    return { printProjects, gameMap };
   },
   component: Prints,
-})
+});
 
-type DotClass = 'dotPlanned' | 'dotPrinting' | 'dotPrinted'
+type DotClass = "dotPlanned" | "dotPrinting" | "dotPrinted";
 
-const COLUMNS: { status: PrintProject['status']; label: string; dot: DotClass }[] = [
-  { status: 'planned', label: 'Planned', dot: 'dotPlanned' },
-  { status: 'printing', label: 'Printing', dot: 'dotPrinting' },
-  { status: 'printed', label: 'Printed', dot: 'dotPrinted' },
-]
+const COLUMNS: { status: PrintProject["status"]; label: string; dot: DotClass }[] = [
+  { status: "planned", label: "Planned", dot: "dotPlanned" },
+  { status: "printing", label: "Printing", dot: "dotPrinting" },
+  { status: "printed", label: "Printed", dot: "dotPrinted" },
+];
 
 function Prints() {
-  const { printProjects, gameMap } = Route.useLoaderData()
-  const printedCount = printProjects.filter((p) => p.status === 'printed').length
+  const { printProjects, gameMap } = Route.useLoaderData();
+  const printedCount = printProjects.filter((p) => p.status === "printed").length;
 
   return (
     <div>
@@ -37,7 +37,7 @@ function Prints() {
 
       <div className={styles.kanban}>
         {COLUMNS.map(({ status, label, dot }) => {
-          const items = printProjects.filter((p) => p.status === status)
+          const items = printProjects.filter((p) => p.status === status);
           return (
             <div key={status} className={styles.column}>
               <div className={styles.columnHeader}>
@@ -60,9 +60,9 @@ function Prints() {
                 )}
               </div>
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }

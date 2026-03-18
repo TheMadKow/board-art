@@ -1,7 +1,7 @@
-import styles from './RouteError.module.css'
+import styles from "./RouteError.module.css";
 
 interface RouteErrorProps {
-  error: Error
+  error: Error;
 }
 
 export default function RouteError({ error }: RouteErrorProps) {
@@ -10,5 +10,5 @@ export default function RouteError({ error }: RouteErrorProps) {
       <div className={styles.title}>Something went wrong</div>
       <div className={styles.message}>{error.message}</div>
     </div>
-  )
+  );
 }

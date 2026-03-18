@@ -1,36 +1,36 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { getGames } from '~/lib/serverFns/games'
-import { getSleevingData } from '~/lib/serverFns/sleeving'
-import { getPrintProjects } from '~/lib/serverFns/prints'
-import RouteError from '~/components/RouteError/RouteError'
-import styles from './index.module.css'
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { getGames } from "~/lib/serverFns/games";
+import { getSleevingData } from "~/lib/serverFns/sleeving";
+import { getPrintProjects } from "~/lib/serverFns/prints";
+import RouteError from "~/components/RouteError/RouteError";
+import styles from "./index.module.css";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   errorComponent: ({ error }) => <RouteError error={error as Error} />,
   loader: async () => {
     const [games, { games: sleeveGames }, printProjects] = await Promise.all([
       getGames(),
       getSleevingData(),
       getPrintProjects(),
-    ])
-    return { games, sleeveGames, printProjects }
+    ]);
+    return { games, sleeveGames, printProjects };
   },
   component: Dashboard,
-})
+});
 
 function Dashboard() {
-  const { games, sleeveGames, printProjects } = Route.useLoaderData()
+  const { games, sleeveGames, printProjects } = Route.useLoaderData();
 
-  const ownedCount = games.filter((g) => g.owned && !g.removed).length
-  const totalSessions = games.reduce((sum, g) => sum + g.playLog.length, 0)
+  const ownedCount = games.filter((g) => g.owned && !g.removed).length;
+  const totalSessions = games.reduce((sum, g) => sum + g.playLog.length, 0);
 
-  const ownedWithSleeves = sleeveGames.filter((g) => g.sleeves.length > 0)
+  const ownedWithSleeves = sleeveGames.filter((g) => g.sleeves.length > 0);
   const fullySleevedCount = ownedWithSleeves.filter((g) =>
-    g.sleeves.every((s) => s.sleeved >= s.needed)
-  ).length
+    g.sleeves.every((s) => s.sleeved >= s.needed),
+  ).length;
 
-  const printedCount = printProjects.filter((p) => p.status === 'printed').length
-  const pendingPrints = printProjects.filter((p) => p.status !== 'printed').length
+  const printedCount = printProjects.filter((p) => p.status === "printed").length;
+  const pendingPrints = printProjects.filter((p) => p.status !== "printed").length;
 
   return (
     <div>
@@ -56,7 +56,8 @@ function Dashboard() {
           <div className={styles.cardTitle}>Sleeving</div>
           <div className={styles.cardStat}>{fullySleevedCount}</div>
           <div className={styles.cardDesc}>
-            games fully sleeved &mdash; {ownedWithSleeves.length - fullySleevedCount} partially or unstarted
+            games fully sleeved &mdash; {ownedWithSleeves.length - fullySleevedCount} partially or
+            unstarted
           </div>
         </Link>
 
@@ -70,5 +71,5 @@ function Dashboard() {
         </Link>
       </div>
     </div>
-  )
+  );
 }

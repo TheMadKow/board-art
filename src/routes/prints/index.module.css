@@ -37,9 +37,15 @@
   flex-shrink: 0;
 }
 
-.dotPlanned { background-color: var(--muted); }
-.dotPrinting { background-color: var(--warning); }
-.dotPrinted { background-color: var(--success); }
+.dotPlanned {
+  background-color: var(--muted);
+}
+.dotPrinting {
+  background-color: var(--warning);
+}
+.dotPrinted {
+  background-color: var(--success);
+}
 
 .cards {
   display: flex;

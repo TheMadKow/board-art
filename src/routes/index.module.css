@@ -35,12 +35,17 @@
   gap: 12px;
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s,
+    transform 0.15s;
 }
 
 .card:hover {
   border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent), var(--shadow);
+  box-shadow:
+    0 0 0 1px var(--accent),
+    var(--shadow);
   transform: translateY(-2px);
   color: inherit;
 }
